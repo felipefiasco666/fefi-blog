@@ -1,0 +1,9 @@
+{% extends "blog/base.html" %}
+{% block content %}
+<p class="par2">Add new topic:</p>
+<form action="{% url 'blog:new_topic' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name="submit">Add topic</button>
+</form>
+{% endblock content %}

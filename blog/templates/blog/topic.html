@@ -1,0 +1,33 @@
+{% extends "blog/base.html" %}
+{% block content %}
+{% load thumbnail %}
+
+
+    {% if topic.image %}
+<img class="prof" src="{{topic.image.url}}" width='500' height="500" >
+{% else %}
+{{ topic.name }}
+{% endif %}
+
+<p>
+    <a class="entry" class="entry" href="{% url 'blog:new_entry' topic.id %}">Add new entry</a>
+</p>
+<p class="par2" >Entries:</p>
+<ul class="level">
+{% for entry in entries %}
+    <li>
+        <p>posted on: {{ entry.date_added|date:'M d,Y H:i' }}</p>
+        <p>{{ entry.name|linebreaks }}</p>
+        <a class="add" href="{% url 'blog:edit_entry' entry.id %}">edit entry</a>
+
+    </li>
+{% empty %}
+    <li>There are no entries for this topic yet.</li>
+{% endfor %}    
+</ul>
+<form action="{% url 'blog:delete' topic.id %}" method="post">
+    {% csrf_token %}
+    <button type="submit">delete topic</button>
+
+</form>
+{% endblock content %}

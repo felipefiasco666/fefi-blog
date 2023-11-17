@@ -1,0 +1,23 @@
+{% extends "blog/base.html" %}
+{% block page_header %}
+{% load thumbnail %}
+{% load static %}
+<p> <h4> Hello, {{user.username}} welcome to your personal blog. </h4></p>
+<h1>Topics</h1>
+{% endblock page_header %}
+{% block content %}
+<ul class="topic">
+    {% for topic in topics %}
+        <li><h3>
+            <a class="name" href="{% url 'blog:topic' topic.id %}">{{ topic.name }}</a>
+            </h3>
+        </li>  
+    {% empty %}
+        <li><h3>No topic has been added yet</h3></li>
+    {% endfor %}
+   
+   
+</ul>
+
+<h3><a class="green" href="{% url 'blog:new_topic' %}">Add new topic</a></h3>
+{% endblock content %}
